@@ -1,28 +1,20 @@
-package net.guides.springboot2.crud.controller;
+package com.ems.employeemanagement.controller;
 
+import com.ems.employeemanagement.exception.ResourceNotFoundException;
+import com.ems.employeemanagement.model.Employee;
+import com.ems.employeemanagement.repository.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import net.guides.springboot2.crud.exception.ResourceNotFoundException;
-import net.guides.springboot2.crud.model.Employee;
-import net.guides.springboot2.crud.repository.EmployeeRepository;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/empapi/v1")
 public class EmployeeController {
 	@Autowired
 	private EmployeeRepository employeeRepository;
@@ -47,16 +39,34 @@ public class EmployeeController {
 
 	@PutMapping("/employees/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Long employeeId,
-			@Valid @RequestBody Employee employeeDetails) throws ResourceNotFoundException {
-		Employee employee = employeeRepository.findById(employeeId)
-				.orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + employeeId));
+												   @RequestBody Map<String, Object> updates) {
+		Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
+		if (!optionalEmployee.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
 
-		employee.setEmailId(employeeDetails.getEmailId());
-		employee.setLastName(employeeDetails.getLastName());
-		employee.setFirstName(employeeDetails.getFirstName());
+		Employee employee = optionalEmployee.get();
+
+		if (updates.containsKey("name")) {
+			employee.setName((String) updates.get("name"));
+		}
+
+		if (updates.containsKey("age")) {
+			employee.setAge((Integer) updates.get("age"));
+		}
+
+		if (updates.containsKey("designation")) {
+			employee.setDesignation((String) updates.get("designation"));
+		}
+
+		if (updates.containsKey("salary")) {
+			employee.setSalary((int) updates.get("salary"));
+		}
+
 		final Employee updatedEmployee = employeeRepository.save(employee);
 		return ResponseEntity.ok(updatedEmployee);
 	}
+
 
 	@DeleteMapping("/employees/{id}")
 	public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long employeeId)
