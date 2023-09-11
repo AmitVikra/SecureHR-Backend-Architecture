@@ -14,8 +14,12 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/empapi/v1")
+
 public class EmployeeController {
+	@GetMapping("/")
+	public String welcome(){
+		return "Welcome to webApplication";
+	}
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
