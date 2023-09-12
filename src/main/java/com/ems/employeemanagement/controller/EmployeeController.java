@@ -51,21 +51,13 @@ public class EmployeeController {
 
 		Employee employee = optionalEmployee.get();
 
-		if (updates.containsKey("name")) {
-			employee.setName((String) updates.get("name"));
-		}
+		if (updates.containsKey("name")) { employee.setName((String) updates.get("name")); }
 
-		if (updates.containsKey("age")) {
-			employee.setAge((Integer) updates.get("age"));
-		}
+		if (updates.containsKey("age")) { employee.setAge((Integer) updates.get("age")); }
 
-		if (updates.containsKey("designation")) {
-			employee.setDesignation((String) updates.get("designation"));
-		}
+		if (updates.containsKey("designation")) { employee.setDesignation((String) updates.get("designation")); }
 
-		if (updates.containsKey("salary")) {
-			employee.setSalary((int) updates.get("salary"));
-		}
+		if (updates.containsKey("salary")) { employee.setSalary((int) updates.get("salary")); }
 
 		final Employee updatedEmployee = employeeRepository.save(employee);
 		return ResponseEntity.ok(updatedEmployee);
