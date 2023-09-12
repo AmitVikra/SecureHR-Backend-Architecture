@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private Logger logger = LoggerFactory.getLogger(OncePerRequestFilter.class);
@@ -72,8 +72,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         //
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-
             //fetch user detail from username
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             Boolean validateToken = this.jwtHelper.validateToken(token, userDetails);

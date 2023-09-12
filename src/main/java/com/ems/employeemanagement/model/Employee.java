@@ -1,6 +1,6 @@
 package com.ems.employeemanagement.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "employee_details")
