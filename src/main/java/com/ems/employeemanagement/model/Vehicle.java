@@ -15,9 +15,13 @@ import lombok.Setter;
 @Table(name = "vehicle_details")
 public class Vehicle {
     @Id
-    private int vehicle_number;
+    @Column(unique = true)
+    private int number;
+    private String model;
+    private String type;
     private int horsepower;
 
     @OneToOne
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 }

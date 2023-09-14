@@ -3,6 +3,7 @@ package com.ems.employeemanagement.controller;
 import com.ems.employeemanagement.exception.ResourceNotFoundException;
 import com.ems.employeemanagement.model.Employee;
 import com.ems.employeemanagement.repository.EmployeeRepository;
+import com.ems.employeemanagement.repository.VehicleRepository;
 import com.ems.employeemanagement.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +18,21 @@ import java.util.Optional;
 @RestController
 
 public class EmployeeController {
+	private final EmployeeService employeeService;
+	private final EmployeeRepository employeeRepository;
+	private final VehicleRepository vehicleRepository;
+	@Autowired
+	public EmployeeController(EmployeeService employeeService, EmployeeRepository employeeRepository, VehicleRepository vehicleRepository) {
+		this.employeeService = employeeService;
+		this.employeeRepository = employeeRepository;
+		this.vehicleRepository = vehicleRepository;
+	}
+
 	@GetMapping("/")
 	public String welcome(){
 		return "Welcome to webApplication";
 	}
 
-	@Autowired
-	private EmployeeRepository employeeRepository;
 	@GetMapping("/employees")
 	public List<Employee> getAllEmployees() {
 		return employeeRepository.findAll();
@@ -64,7 +73,6 @@ public class EmployeeController {
 		return ResponseEntity.ok(updatedEmployee);
 	}
 
-
 	@DeleteMapping("/employees/{id}")
 	public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long employeeId)
 			throws ResourceNotFoundException {
@@ -77,8 +85,6 @@ public class EmployeeController {
 		return response;
 	}
 
-	@Autowired
-	private EmployeeService employeeService;
 	//employee/findbyDesignation?designation=manager
 	@GetMapping("employees/findbyDesignation")
 	public List<Employee> getEmployeesByDesignation(@RequestParam String designation) {
@@ -90,4 +96,19 @@ public class EmployeeController {
 	public List<Employee> getEmployeeByName(@RequestParam String name){
 		return employeeService.getEmployeesByname(name);
 	}
+
+	//employees/byAgeRange?minAge=x&maxAge=y
+	@GetMapping("employees/byAgeRange")
+	public List<Employee> getEmployeesByAgeRange(
+			@RequestParam int minAge,
+			@RequestParam int maxAge) {
+		return employeeService.getEmployeesByAgeRange(minAge, maxAge);
+	}
+
+	//employees/ByVehicleType?vehicleType=YourVehicleType
+	@GetMapping("employees/ByVehicleType")
+	public List<Employee> getEmployeesByVehicleType(@RequestParam String vehicleType) {
+		return employeeService.findEmployeesByVehicleType(vehicleType);
+	}
 }
+
