@@ -3,6 +3,7 @@ package com.ems.employeemanagement.controller;
 import com.ems.employeemanagement.exception.ResourceNotFoundException;
 import com.ems.employeemanagement.model.Employee;
 import com.ems.employeemanagement.repository.EmployeeRepository;
+import com.ems.employeemanagement.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +21,9 @@ public class EmployeeController {
 	public String welcome(){
 		return "Welcome to webApplication";
 	}
+
 	@Autowired
 	private EmployeeRepository employeeRepository;
-
 	@GetMapping("/employees")
 	public List<Employee> getAllEmployees() {
 		return employeeRepository.findAll();
@@ -85,4 +86,11 @@ public class EmployeeController {
 		response.put("deleted", Boolean.TRUE);
 		return response;
 	}
+
+	private EmployeeService employeeService;
+	@GetMapping("employee/find/byDesignation")
+	public List<Employee> getEmployeesByDesignation(@RequestParam String designation) {
+		return employeeRepository.getEmployeesByDesignation(designation);
+	}
+
 }

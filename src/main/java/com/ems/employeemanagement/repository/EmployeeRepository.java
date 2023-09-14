@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ems.employeemanagement.model.Employee;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -11,5 +12,7 @@ import java.util.Optional;
 public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 
     Optional<Employee> findEmployeeByName(String name);
+    List<Employee> getEmployeesByDesignation(String designation);
 }
+
 
