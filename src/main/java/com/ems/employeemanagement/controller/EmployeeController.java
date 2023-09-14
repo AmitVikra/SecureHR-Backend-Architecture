@@ -36,6 +36,16 @@ public class EmployeeController {
 		return ResponseEntity.ok().body(employee);
 	}
 
+
+	@GetMapping("/employees/findbyname/{name}")
+       public ResponseEntity<Employee> getEmployeeByName(@PathVariable(value = "name") String name)
+			throws ResourceNotFoundException {
+		Employee employee = (Employee) employeeRepository.findEmployeeByName(name)
+				.orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + name));
+		return ResponseEntity.ok().body(employee);
+	}
+
+
 	@PostMapping("/employees")
 	public Employee createEmployee(@Valid @RequestBody Employee employee) {
 		return employeeRepository.save(employee);

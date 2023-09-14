@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 
 @Entity
+@Table(name = "vehicle_details")
 public class Vehicle {
     @Id
     private int vehicle_number;
