@@ -37,16 +37,6 @@ public class EmployeeController {
 		return ResponseEntity.ok().body(employee);
 	}
 
-
-	@GetMapping("/employees/findbyname/{name}")
-       public ResponseEntity<Employee> getEmployeeByName(@PathVariable(value = "name") String name)
-			throws ResourceNotFoundException {
-		Employee employee = (Employee) employeeRepository.findEmployeeByName(name)
-				.orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + name));
-		return ResponseEntity.ok().body(employee);
-	}
-
-
 	@PostMapping("/employees")
 	public Employee createEmployee(@Valid @RequestBody Employee employee) {
 		return employeeRepository.save(employee);
@@ -87,10 +77,17 @@ public class EmployeeController {
 		return response;
 	}
 
+	@Autowired
 	private EmployeeService employeeService;
-	@GetMapping("employee/find/byDesignation")
+	//employee/findbyDesignation?designation=manager
+	@GetMapping("employees/findbyDesignation")
 	public List<Employee> getEmployeesByDesignation(@RequestParam String designation) {
-		return employeeRepository.getEmployeesByDesignation(designation);
+		return employeeService.getEmployeesByDesignation(designation);
 	}
 
+	@GetMapping("/employees/findbyName")
+	//employee/findbyName?name=manager
+	public List<Employee> getEmployeeByName(@RequestParam String name){
+		return employeeService.getEmployeesByname(name);
+	}
 }
