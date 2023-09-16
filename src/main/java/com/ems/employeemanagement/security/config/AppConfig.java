@@ -1,4 +1,4 @@
-package com.ems.employeemanagement.config;
+package com.ems.employeemanagement.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

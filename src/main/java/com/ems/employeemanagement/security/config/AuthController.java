@@ -1,8 +1,8 @@
-package com.ems.employeemanagement.config;
+package com.ems.employeemanagement.security.config;
 
-import com.ems.employeemanagement.model.JwtRequest;
-import com.ems.employeemanagement.model.JwtResponse;
-import com.ems.employeemanagement.security.JwtHelper;
+import com.ems.employeemanagement.security.model.JwtRequest;
+import com.ems.employeemanagement.security.model.JwtResponse;
+import com.ems.employeemanagement.security.authentication.JwtHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.ems.employeemanagement.security;
+package com.ems.employeemanagement.security.authentication;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

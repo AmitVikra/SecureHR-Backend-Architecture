@@ -1,4 +1,4 @@
-package com.ems.employeemanagement.model;
+package com.ems.employeemanagement.security.model;
 
 
 import lombok.*;

@@ -1,4 +1,4 @@
-package com.ems.employeemanagement.exception;
+package com.ems.employeemanagement.security.exception;
 
 import java.util.Date;
 

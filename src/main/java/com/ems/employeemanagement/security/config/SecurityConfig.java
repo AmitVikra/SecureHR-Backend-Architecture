@@ -1,7 +1,7 @@
-package com.ems.employeemanagement.config;
+package com.ems.employeemanagement.security.config;
 
-import com.ems.employeemanagement.security.JwtAuthenticationEntryPoint;
-import com.ems.employeemanagement.security.JwtAuthenticationFilter;
+import com.ems.employeemanagement.security.authentication.JwtAuthenticationEntryPoint;
+import com.ems.employeemanagement.security.authentication.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

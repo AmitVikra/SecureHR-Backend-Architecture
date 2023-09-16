@@ -1,4 +1,4 @@
-package com.ems.employeemanagement.security;
+package com.ems.employeemanagement.security.authentication;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

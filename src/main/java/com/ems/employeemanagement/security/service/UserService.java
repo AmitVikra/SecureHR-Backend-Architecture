@@ -1,6 +1,6 @@
-package com.ems.employeemanagement.service;
+package com.ems.employeemanagement.security.service;
 
-import com.ems.employeemanagement.model.User;
+import com.ems.employeemanagement.security.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
