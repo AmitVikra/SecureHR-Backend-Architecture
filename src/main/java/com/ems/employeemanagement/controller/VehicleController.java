@@ -5,12 +5,10 @@ import com.ems.employeemanagement.security.exception.ResourceNotFoundException;
 import com.ems.employeemanagement.model.Vehicle;
 import com.ems.employeemanagement.repository.VehicleRepository;
 import com.ems.employeemanagement.service.VehicleService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,11 +19,15 @@ public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
 
-    @GetMapping("/vehicles")
+    @GetMapping("/public/vehicles")
     public List<Vehicle> getAllVehicles() {
         return vehicleRepository.findAll();
     }
 
+    @PostMapping("/vehicles")
+    public Vehicle createVehicle(@Valid @RequestBody Vehicle vehicle){
+        return vehicleRepository.save(vehicle);
+    }
     @GetMapping("/vehicles/{number}")
     public ResponseEntity<Vehicle> getVehicleByNumber(@PathVariable(value = "number") Long vehicleNumber)
             throws ResourceNotFoundException {
