@@ -21,22 +21,14 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     @Autowired
     private UserDetailsService userDetailsService;
-
     @Autowired
     private AuthenticationManager manager;
-
-
     @Autowired
     private JwtHelper helper;
-
     private Logger logger = LoggerFactory.getLogger(AuthController.class);
-
-
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
-
         this.doAuthenticate(request.getEmail(), request.getPassword());
-
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
         String token = this.helper.generateToken(userDetails);
