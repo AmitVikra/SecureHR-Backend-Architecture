@@ -20,5 +20,4 @@ public class VehicleService {
         return vehicleRepository.findVehicleByType((VehicleType));
     }
 
-
 }
