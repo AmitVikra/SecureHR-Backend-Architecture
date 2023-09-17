@@ -42,6 +42,7 @@ public class VehicleController {
                 .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found for this number :: " + vehicleNumber));
         return ResponseEntity.ok().body(vehicle);
     }
+
     @GetMapping("/vehicles/findbyModel")
     //vehicles/findbymodel?model=model_name
     public List<Vehicle> getVehicleByModel(@RequestParam String model){
