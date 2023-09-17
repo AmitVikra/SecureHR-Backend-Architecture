@@ -22,7 +22,6 @@ public class SecurityConfig {
     private JwtAuthenticationFilter filter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http.csrf(csrf -> csrf.disable())
                 .authorizeRequests()
                 .requestMatchers("/public/**").permitAll()
