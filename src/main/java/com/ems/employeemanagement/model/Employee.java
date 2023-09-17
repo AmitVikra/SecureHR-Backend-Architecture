@@ -28,4 +28,5 @@ public class Employee {
     @UpdateTimestamp
     private Timestamp updatedAt;
 // line added
+    // new line added from master
 }
