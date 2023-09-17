@@ -27,5 +27,5 @@ public class Employee {
 
     @UpdateTimestamp
     private Timestamp updatedAt;
-
+// line added
 }
