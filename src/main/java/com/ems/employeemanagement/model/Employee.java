@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -21,12 +23,11 @@ public class Employee {
     private int age;
     private String designation;
     private int salary;
+    private Date joining_date;
+    private int work_experience;
 
     @CreationTimestamp
     private Timestamp createdAt;
-
     @UpdateTimestamp
     private Timestamp updatedAt;
-// line added
-    // new line added from master
 }

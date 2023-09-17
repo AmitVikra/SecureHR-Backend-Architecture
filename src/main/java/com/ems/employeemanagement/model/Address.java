@@ -5,7 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.print.attribute.standard.MediaSize;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -28,4 +32,8 @@ public class Address {
     @JoinColumn(name = "employee_id",nullable = false)
     private Employee employee;
 
+    @CreationTimestamp
+    private Timestamp createdAt;
+    @UpdateTimestamp
+    private Timestamp updatedAt;
 }
