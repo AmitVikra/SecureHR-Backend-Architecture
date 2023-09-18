@@ -23,8 +23,9 @@ public class Employee {
     private int age;
     private String designation;
     private int salary;
+    private Integer work_experience;
     private Date joining_date;
-//    private int work_experience;
+
 
     @CreationTimestamp
     private Timestamp createdAt;
