@@ -1,6 +1,8 @@
 package com.ems.employeemanagement.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,10 +22,12 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+
+    @Column(columnDefinition = "int check (age >= 20 and age <= 55)")
     private int age;
     private String designation;
     private int salary;
-    private Integer work_experience;
+    private int work_experience;
     private Date joining_date;
 
 
