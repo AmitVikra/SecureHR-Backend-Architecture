@@ -9,7 +9,6 @@ import com.ems.employeemanagement.service.VehicleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -68,7 +67,6 @@ public class VehicleController {
         return ResponseEntity.notFound().build();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/vehicles/{number}")
     public Map<String, Boolean> deleteVehicle(@PathVariable(value = "number") Long number)
             throws ResourceNotFoundException {
