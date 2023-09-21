@@ -1,4 +1,4 @@
-package com.ems.employeemanagement.security.exception;
+package com.ems.employeemanagement.exception;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

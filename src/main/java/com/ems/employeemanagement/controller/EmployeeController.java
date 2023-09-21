@@ -1,6 +1,6 @@
 package com.ems.employeemanagement.controller;
 
-import com.ems.employeemanagement.security.exception.ResourceNotFoundException;
+import com.ems.employeemanagement.exception.ResourceNotFoundException;
 import com.ems.employeemanagement.model.Employee;
 import com.ems.employeemanagement.repository.EmployeeRepository;
 import com.ems.employeemanagement.service.EmployeeService;
