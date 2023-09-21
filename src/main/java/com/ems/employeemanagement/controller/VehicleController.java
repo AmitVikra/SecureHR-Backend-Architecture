@@ -26,7 +26,7 @@ public class VehicleController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @GetMapping("/public/vehicles")
+    @GetMapping("/vehicles")
     public List<Vehicle> getAllVehicles() {
         return vehicleRepository.findAll();
     }

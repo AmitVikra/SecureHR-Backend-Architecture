@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 public class Vehicle {
     @Id
     @Column(unique = true)
-    private int number;
+    private String number;
     private String model;
     private String type;
     private int horsepower;

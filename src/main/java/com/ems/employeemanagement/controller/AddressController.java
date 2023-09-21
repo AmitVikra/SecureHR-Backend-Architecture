@@ -12,7 +12,7 @@ import java.util.List;
 public class AddressController {
     @Autowired
     private AddressRepository addressRepository;
-    @GetMapping("/public/address")
+    @GetMapping("/address")
     public List<Address> getAllAddress(){
         return addressRepository.findAll();
     }

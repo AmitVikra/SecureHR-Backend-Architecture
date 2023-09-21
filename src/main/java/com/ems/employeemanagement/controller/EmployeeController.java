@@ -27,7 +27,7 @@ public class EmployeeController {
 		return "Welcome to webApplication";
 	}
 
-	@GetMapping("/public/employees")
+	@GetMapping("employees")
 	public List<Employee> getAllEmployees() {
 		return employeeRepository.findAll();
 	}
