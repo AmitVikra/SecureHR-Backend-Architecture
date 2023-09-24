@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/employees")
 public class VehicleController {
     @Autowired
     private VehicleRepository vehicleRepository;

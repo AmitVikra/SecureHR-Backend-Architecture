@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/employees")
 public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
@@ -26,12 +27,12 @@ public class EmployeeController {
 		return "Welcome to webApplication";
 	}
 
-	@GetMapping("employees")
+	@GetMapping("all-employees")
 	public List<Employee> getAllEmployees() {
 		return employeeRepository.findAll();
 	}
 
-	@GetMapping("/employees/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Long employeeId)
 			throws ResourceNotFoundException {
 		Employee employee = employeeRepository.findById(employeeId)
@@ -39,12 +40,12 @@ public class EmployeeController {
 		return ResponseEntity.ok().body(employee);
 	}
 
-	@PostMapping("/employees")
+	@PostMapping("/register-employees")
 	public Employee createEmployee(@Valid @RequestBody Employee employee) {
 		return employeeRepository.save(employee);
 	}
 //
-	@PutMapping("/employees/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Long employeeId,
 												   @RequestBody Map<String, Object> updates) {
 		Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
@@ -64,7 +65,7 @@ public class EmployeeController {
 	//Hello world
 	//new line added from testing
 
-	@DeleteMapping("/employees/{id}")
+	@DeleteMapping("/{id}")
 	public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long employeeId)
 			throws ResourceNotFoundException {
 		Employee employee = employeeRepository.findById(employeeId)
@@ -77,17 +78,17 @@ public class EmployeeController {
 	}
 
 	//employee/findbyDesignation?designation=manager
-	@GetMapping("employees/findbyDesignation")
+	@GetMapping("/findbyDesignation")
 	public List<Employee> getEmployeesByDesignation(@RequestParam String designation) {
 		return employeeService.getEmployeesByDesignation(designation);
 	}
-	@GetMapping("/employees/findbyName")
+	@GetMapping("/findbyName")
 	//employee/findbyName?name=manager
 	public List<Employee> getEmployeeByName(@RequestParam String name){
 		return employeeService.getEmployeesByname(name);
 	}
 	//employees/byAgeRange?minAge=x&maxAge=y
-	@GetMapping("employees/byAgeRange")
+	@GetMapping("/byAgeRange")
 	public List<Employee> getEmployeesByAgeRange(
 			@RequestParam int minAge,
 			@RequestParam int maxAge) {
@@ -95,7 +96,7 @@ public class EmployeeController {
 	}
 
 	//employees/ByVehicleType?vehicleType=YourVehicleType
-	@GetMapping("employees/ByVehicleType")
+	@GetMapping("/ByVehicleType")
 	public List<Employee> getEmployeesByVehicleType(@RequestParam String vehicleType) {
 		return employeeService.findEmployeesByVehicleType(vehicleType);
 	}
