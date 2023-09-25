@@ -14,7 +14,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 
     List<Employee> findByDesignation(String designation);
     List<Employee> findByName(String name);
-    List<Employee> findByAgeBetween(int minAge, int maxAge);
+    List<Employee> findEmployeeByAgeGreaterThan(int minAge);
+    List<Employee> findEmployeeByAgeLessThan(int maxAge);
 }
 
 
