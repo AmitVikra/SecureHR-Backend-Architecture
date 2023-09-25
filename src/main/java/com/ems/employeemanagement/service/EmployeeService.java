@@ -21,15 +21,6 @@ public class EmployeeService {
     @Autowired
     private AddressRepository addressRepository;
 
-    public List<Employee> getEmployeesByDesignation(String designation){
-        return employeeRepository.findByDesignation(designation);
-    }
-    public List<Employee> getEmployeesByname(String name) {
-        return employeeRepository.findByName(name);
-    }
-    public List<Employee> getEmployeesByAgeRange(int minAge, int maxAge) {
-        return employeeRepository.findByAgeBetween(minAge,maxAge);
-    }
     public List<Employee> findEmployeesByVehicleType(String vehicleType) {
         List<Vehicle> vehicles = vehicleRepository.findVehicleByType(vehicleType);
         List<Employee> employees = vehicles.stream()
