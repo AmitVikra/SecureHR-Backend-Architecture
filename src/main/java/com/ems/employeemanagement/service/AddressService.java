@@ -15,12 +15,5 @@ public class AddressService {
 
     @Autowired
     AddressRepository addressRepository;
-    public List<Address> getAddressByCity(String cityName){
-        return addressRepository.findAddressByCityName(cityName);
-    }
-
-    public List<Address> getAddressByCountry(String countryName){
-        return addressRepository.findAddressByCountry(countryName);
-    }
 
 }

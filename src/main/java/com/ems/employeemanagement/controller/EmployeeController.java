@@ -1,19 +1,14 @@
 package com.ems.employeemanagement.controller;
-
-import com.ems.employeemanagement.security.exception.ResourceNotFoundException;
+import com.ems.employeemanagement.exception.ResourceNotFoundException;
 import com.ems.employeemanagement.model.Employee;
 import com.ems.employeemanagement.repository.EmployeeRepository;
 import com.ems.employeemanagement.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import jakarta.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
+import java.util.*;
 
 @RestController
 @RequestMapping("/employees")
@@ -22,17 +17,15 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 	@Autowired
 	private EmployeeRepository employeeRepository;
-
 	@GetMapping("/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Long employeeId)
 			throws ResourceNotFoundException {
 		Employee employee = employeeRepository.findById(employeeId)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + employeeId));
-		return ResponseEntity.ok().body(employee);}
+		return ResponseEntity.ok().body(employee); }
 	@PostMapping("/register")
 	public Employee createEmployee(@Valid @RequestBody Employee employee) {
-		return employeeRepository.save(employee);
-	}
+		return employeeRepository.save(employee); }
 	@PutMapping("/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Long employeeId,
 												   @RequestBody Map<String, Object> updates) {
@@ -68,26 +61,24 @@ public class EmployeeController {
 			@RequestParam(required = false) String designation,
 			@RequestParam(required = false) Integer minAge,
 			@RequestParam(required = false) Integer maxAge,
-			@RequestParam(required = false) String vehicleType) {
+			@RequestParam(required = false) String vehicleType,
+			@RequestParam(required = false) String city) {
 
 		if (name != null) {
-			// Call the method to find employees by name
 			return employeeRepository.findByName(name);
 		} else if (designation != null) {
-			// Call the method to find employees by designation
 			return employeeRepository.findByDesignation(designation);
 		} else if (minAge != null ) {
-			// Call the method to find employees by age range
 			return employeeRepository.findEmployeeByAgeGreaterThan(minAge);
 		} else if (maxAge != null ) {
-			// Call the method to find employees by age range
 			return employeeRepository.findEmployeeByAgeLessThan(maxAge);
 		} else if (vehicleType != null) {
-			// Call the method to find employees by vehicle type
 			return employeeService.findEmployeesByVehicleType(vehicleType);
-		} else {
-			// Handle the case where none of the parameters are provided
-			return employeeRepository.findAll(); // or return all employees if needed
+		} else if (city != null) {
+			return employeeService.findEmployeesByCity(city);
+		}else {
+			return employeeRepository.findAll();
 		}
 	}
 }
+

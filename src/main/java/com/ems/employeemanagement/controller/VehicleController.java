@@ -4,12 +4,11 @@ import com.ems.employeemanagement.model.Employee;
 import com.ems.employeemanagement.model.Vehicle;
 import com.ems.employeemanagement.repository.EmployeeRepository;
 import com.ems.employeemanagement.repository.VehicleRepository;
-import com.ems.employeemanagement.security.exception.ResourceNotFoundException;
+import com.ems.employeemanagement.exception.ResourceNotFoundException;
 import com.ems.employeemanagement.service.VehicleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -18,6 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/employees/vehicle")
 public class VehicleController {
     @Autowired
     private VehicleRepository vehicleRepository;
@@ -26,34 +26,23 @@ public class VehicleController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @GetMapping("/vehicles")
+    @GetMapping("/vehicle")
     public List<Vehicle> getAllVehicles() {
         return vehicleRepository.findAll();
     }
 
-    @PostMapping("/vehicles")
-    public Vehicle createVehicle(@Valid @RequestBody Vehicle vehicle){
+    @PostMapping("/register")
+    public Vehicle createVehicle(@Valid @RequestBody Vehicle vehicle) {
         return vehicleRepository.save(vehicle);
     }
-    @GetMapping("/vehicles/{number}")
+
+    @GetMapping("/{number}")
     public ResponseEntity<Vehicle> getVehicleByNumber(@PathVariable(value = "number") Long vehicleNumber)
             throws ResourceNotFoundException {
         Vehicle vehicle = vehicleRepository.findById(vehicleNumber)
                 .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found for this number :: " + vehicleNumber));
         return ResponseEntity.ok().body(vehicle);
     }
-
-    @GetMapping("/vehicles/findbyModel")
-    //vehicles/findbymodel?model=model_name
-    public List<Vehicle> getVehicleByModel(@RequestParam String model){
-        return vehicleService.getVehicleByModel(model);
-    }
-    @GetMapping("/vehicles/findbyType")
-    //vehicles/findbyType?type = Vehicle_type
-    public List<Vehicle> getVehicleByType(@RequestParam String type){
-        return vehicleService.getVehicleByType(type);
-    }
-
     @GetMapping("/{employeeId}/vehicle")
     public ResponseEntity<Vehicle> getEmployeeVehicle(@PathVariable Long employeeId) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
@@ -67,9 +56,7 @@ public class VehicleController {
         }
         return ResponseEntity.notFound().build();
     }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/vehicles/{number}")
+    @DeleteMapping("/{number}")
     public Map<String, Boolean> deleteVehicle(@PathVariable(value = "number") Long number)
             throws ResourceNotFoundException {
         Vehicle vehicle = vehicleRepository.findById(number)
@@ -79,5 +66,18 @@ public class VehicleController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;
+    }
+    @GetMapping("")
+    public List<Vehicle> getVehicles (
+            @RequestParam(required = false) String model,
+            @RequestParam(required = false) String type) {
+        if (model != null) {
+            return vehicleRepository.findVehicleByModel(model);
+        } else if (type != null) {
+            return vehicleRepository.findVehicleByType(type);
+        } else {
+            return vehicleRepository.findAll();
+        }
+
     }
 }
