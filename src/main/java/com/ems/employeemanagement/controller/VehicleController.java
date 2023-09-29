@@ -68,16 +68,15 @@ public class VehicleController {
         return response;
     }
     @GetMapping("")
-    public List<Vehicle> getVehicles (
-            @RequestParam(required = false) String model,
-            @RequestParam(required = false) String type) {
-        if (model != null) {
-            return vehicleRepository.findVehicleByModel(model);
-        } else if (type != null) {
-            return vehicleRepository.findVehicleByType(type);
-        } else {
-            return vehicleRepository.findAll();
-        }
+    public ResponseEntity<List<Vehicle>> searchVehicle(
 
+
+            @RequestParam(name = "id", required = false) Long id,
+            @RequestParam(name = "type", required = false) String type,
+            @RequestParam(name = "model", required = false) String model,
+            @RequestParam(name = "number", required = false) String number ){
+
+        List<Vehicle> employees = vehicleService.searchVehicles(id, type, model, number);
+        return ResponseEntity.ok(employees);
     }
 }
