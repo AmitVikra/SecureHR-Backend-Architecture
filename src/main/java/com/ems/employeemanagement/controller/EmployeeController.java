@@ -56,29 +56,14 @@ public class EmployeeController {
 	}
 
 	@GetMapping("")
-	public List<Employee> getEmployees(
-			@RequestParam(required = false) String name,
-			@RequestParam(required = false) String designation,
-			@RequestParam(required = false) Integer minAge,
-			@RequestParam(required = false) Integer maxAge,
-			@RequestParam(required = false) String vehicleType,
-			@RequestParam(required = false) String city) {
+	public ResponseEntity<List<Employee>> searchEmployees(
+			@RequestParam(name = "name", required = false) String name,
+			@RequestParam(name = "designation", required = false) String designation,
+			@RequestParam(name = "city", required = false) String city ){
 
-		if (name != null) {
-			return employeeRepository.findByName(name);
-		} else if (designation != null) {
-			return employeeRepository.findByDesignation(designation);
-		} else if (minAge != null ) {
-			return employeeRepository.findEmployeeByAgeGreaterThan(minAge);
-		} else if (maxAge != null ) {
-			return employeeRepository.findEmployeeByAgeLessThan(maxAge);
-		} else if (vehicleType != null) {
-			return employeeService.findEmployeesByVehicleType(vehicleType);
-		} else if (city != null) {
-			return employeeService.findEmployeesByCity(city);
-		}else {
-			return employeeRepository.findAll();
-		}
+		List<Employee> employees = employeeService.searchEmployees(name, designation, city);
+		return ResponseEntity.ok(employees);
 	}
+
 }
 
