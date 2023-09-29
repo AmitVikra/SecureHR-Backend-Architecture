@@ -59,9 +59,12 @@ public class EmployeeController {
 	public ResponseEntity<List<Employee>> searchEmployees(
 			@RequestParam(name = "name", required = false) String name,
 			@RequestParam(name = "designation", required = false) String designation,
-			@RequestParam(name = "city", required = false) String city ){
+			@RequestParam(name = "city", required = false) String city ,
+			@RequestParam(name = "minAge", required = false) Integer minAge,
+			@RequestParam(name = "maxAge", required = false) Integer maxAge
+	){
 
-		List<Employee> employees = employeeService.searchEmployees(name, designation, city);
+		List<Employee> employees = employeeService.searchEmployees(name, designation, city, minAge, maxAge);
 		return ResponseEntity.ok(employees);
 	}
 

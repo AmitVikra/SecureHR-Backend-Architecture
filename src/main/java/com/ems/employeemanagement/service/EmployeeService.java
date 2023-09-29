@@ -37,7 +37,7 @@ public class EmployeeService {
         return employees;
     }
 
-    public List<Employee> searchEmployees(String name, String designation, String city) {
+    public List<Employee> searchEmployees(String name, String designation, String city, Integer minAge, Integer maxAge) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
         Root<Address> addressRoot = criteriaQuery.from(Address.class);
@@ -62,6 +62,12 @@ public class EmployeeService {
 
         if (city != null) {
             predicates.add(criteriaBuilder.equal(addressRoot.get("city"), city));
+        }
+        if (minAge != null) {
+            predicates.add(criteriaBuilder.greaterThan(detailsJoin.get("age"), minAge));
+        }
+        if (maxAge != null) {
+            predicates.add(criteriaBuilder.lessThan(detailsJoin.get("age"), maxAge));
         }
 
         // Combine predicates with AND
