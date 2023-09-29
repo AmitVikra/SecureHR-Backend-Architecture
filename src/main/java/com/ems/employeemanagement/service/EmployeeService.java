@@ -42,7 +42,6 @@ public class EmployeeService {
         CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
         Root<Address> addressRoot = criteriaQuery.from(Address.class);
 
-        // Join with EmployeeDetails
         Join<Address, Employee> detailsJoin = addressRoot.join("employee", JoinType.INNER);
 
         // Specify the columns you want in the result
