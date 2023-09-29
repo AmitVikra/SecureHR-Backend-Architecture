@@ -67,10 +67,11 @@ public class EmployeeController {
 			@RequestParam(name = "designation", required = false) String designation,
 			@RequestParam(name = "city", required = false) String city ,
 			@RequestParam(name = "minAge", required = false) Integer minAge,
-			@RequestParam(name = "maxAge", required = false) Integer maxAge
+			@RequestParam(name = "maxAge", required = false) Integer maxAge,
+			@RequestParam(name = "vehicleType", required = false) String type
 	){
 
-		List<Employee> employees = employeeService.searchEmployees(name, designation, city, minAge, maxAge);
+		List<Employee> employees = employeeService.searchEmployees(name, designation, city, minAge, maxAge, type);
 		return ResponseEntity.ok(employees);
 	}
 

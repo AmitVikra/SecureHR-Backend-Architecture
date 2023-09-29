@@ -37,12 +37,14 @@ public class EmployeeService {
         return employees;
     }
 
-    public List<Employee> searchEmployees(String name, String designation, String city, Integer minAge, Integer maxAge) {
+    public List<Employee> searchEmployees(String name, String designation, String city, Integer minAge, Integer maxAge, String type) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
         Root<Address> addressRoot = criteriaQuery.from(Address.class);
+        Root<Vehicle> vehicleRoot = criteriaQuery.from(Vehicle.class);
 
         Join<Address, Employee> detailsJoin = addressRoot.join("employee", JoinType.INNER);
+        Join<Vehicle, Employee> vehicleJoin = vehicleRoot.join("employee", JoinType.INNER);
 
         // Specify the columns you want in the result
         criteriaQuery.select(detailsJoin);
@@ -67,6 +69,9 @@ public class EmployeeService {
         }
         if (maxAge != null) {
             predicates.add(criteriaBuilder.lessThan(detailsJoin.get("age"), maxAge));
+        }
+        if (type != null) {
+            predicates.add(criteriaBuilder.equal(vehicleJoin.get("type"), type));
         }
 
         // Combine predicates with AND
