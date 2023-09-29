@@ -1,6 +1,7 @@
 package com.ems.employeemanagement.controller;
 import com.ems.employeemanagement.exception.ResourceNotFoundException;
 import com.ems.employeemanagement.model.Employee;
+import com.ems.employeemanagement.model.Vehicle;
 import com.ems.employeemanagement.repository.EmployeeRepository;
 import com.ems.employeemanagement.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,11 @@ public class EmployeeController {
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;
+	}
+
+	@GetMapping("/")
+	public List<Employee> getAllEmployee() {
+		return employeeRepository.findAll();
 	}
 
 	@GetMapping("")
