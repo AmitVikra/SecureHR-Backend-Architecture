@@ -56,7 +56,7 @@ public class EmployeeService {
         if (name != null) {
             predicates.add(criteriaBuilder.like(detailsJoin.get("name"), "%" + name + "%"));
         }
-
+        
         if (designation != null) {
             predicates.add(criteriaBuilder.like(detailsJoin.get("designation"), "%" + designation + "%"));
         }

@@ -1,12 +1,9 @@
 package com.ems.employeemanagement.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -29,7 +26,6 @@ public class Employee {
     private int salary;
     private int work_experience;
     private Date joining_date;
-
 
     @CreationTimestamp
     private Timestamp createdAt;

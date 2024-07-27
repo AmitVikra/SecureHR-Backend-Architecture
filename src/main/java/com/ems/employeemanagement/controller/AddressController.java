@@ -1,7 +1,6 @@
 package com.ems.employeemanagement.controller;
 
 import com.ems.employeemanagement.model.Address;
-import com.ems.employeemanagement.model.Employee;
 import com.ems.employeemanagement.repository.AddressRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
